@@ -2,8 +2,11 @@
 A practice after reading VGG paper.
 
 ### VGG论文学习与keras实现
-*** 
+***
 #### 网络结构
+
+​	![architecture](./depository/Image.png)
+
 * 卷积层命名方式conv[shape]-[layers], shape表示kernel大小，layers表示卷积核个数，如conv3-64表示kernel大小为(3, 3)，数量为64个。padding均为'same'（实际上是1个padding）。
 * maxpool的参数是(2, 2), stride=2。
 * 网络层层递进，层数分别为16-19层。
@@ -40,7 +43,9 @@ A practice after reading VGG paper.
 * 选取2个s的值，但是每次训练都是固定的，如s1=256，s2=384。应先训练s1，再通过s1的参数训练s2（此时lr应选择为0.001）.
 
 2. 多尺寸训练：
-让$s\in [s_{min}, s_{max}], s_{min}=256, s_{max}=384$，同时训练，但网络需要先用s=384进行预训练。
+  <img src="https://latex.codecogs.com/gif.latex?s\in&space;[s_{min},&space;s_{max}],&space;s_{min}=256,&space;s_{max}=384" title="s\in [s_{min}, s_{max}], s_{min}=256, s_{max}=384" />
+
+  同时训练，但网络需要先用s=384进行预训练。
 
 #### Testing
 VGG在test的时候，将最后三层fc层替换成了卷积层，即从fully-connected转变为fully-convolutional。第一层fc变为7x7的卷积层，后2层fc变为1x1的卷积层，layers数要等于分类数，最后取空间平均得到预测结果。
